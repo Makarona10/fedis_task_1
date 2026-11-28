@@ -10,16 +10,15 @@ import {
 import { OperatingHours, ResourceType } from '../schemas/resource.schema';
 import { Transform } from 'class-transformer';
 
-
 export class GetAllResourcesAdminDTO {
   @IsNumber()
   @IsOptional()
-  @Transform(({ value }) => value ? value : 1)
+  @Transform(({ value }) => (value ? value : 1))
   page: number = 1;
-  
+
   @IsOptional()
-  @Transform(({ value }) => value ? value : "desc")
-  dateOrder: "asc" | "desc" = "desc"
+  @Transform(({ value }) => (value ? value : 'desc'))
+  dateOrder: 'asc' | 'desc' = 'desc';
 }
 
 export class SearchResourcesAdminDTO extends GetAllResourcesAdminDTO {
@@ -58,7 +57,7 @@ export class CreateResourceDTO {
 
   @IsString()
   @MaxLength(1024)
-  description: string
+  description: string;
 
   @IsNotEmpty()
   operatingHours: OperatingHours;
