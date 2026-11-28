@@ -8,12 +8,7 @@ export enum UserRole {
   CUSTOMER = 'CUSTOMER',
 }
 
-export interface RefreshToken {
-  token: string;
-  expiresAt: Date;
-}
-
-@Schema({ timestamps: true, toJSON: { virtuals: true, getters: true } })
+@Schema({ timestamps: true })
 export class User {
   @Prop({
     required: true,
@@ -42,13 +37,8 @@ export class User {
   @Prop({ type: Boolean, default: true, index: true })
   isActive: boolean;
 
-  @Prop([
-    {
-      token: { type: String, required: true },
-      expiresAt: { type: Date, required: true },
-    },
-  ])
-  refreshTokens: RefreshToken[];
+  @Prop({ type: Array<String> })
+  refreshTokens: string[];
 
   createdAt: Date;
   updatedAt: Date;
