@@ -8,10 +8,9 @@ import { UsersService } from 'src/users/users.service';
 
 @Injectable()
 export class IsUserActiveGuard implements CanActivate {
-    constructor(private readonly userService: UsersService){}
+  constructor(private readonly userService: UsersService) {}
 
-
-    async canActivate(context: ExecutionContext): Promise<boolean> {
+  async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest();
     const user = request.user;
     const isActive = await this.userService.isUserActive(user.id);

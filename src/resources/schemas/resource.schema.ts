@@ -10,17 +10,17 @@ export enum ResourceType {
   PRIVATE = 'PRIVATE_OFFICE',
 }
 
-export interface OperatingHour {
+export interface OperatingHours {
   openTime: string;
   closeTime: string;
 }
 
 @Schema({ timestamps: true })
 export class Resource {
-  @Prop({ required: true })
+  @Prop({ required: true, maxLength: 16, unique: true })
   name: string;
 
-  @Prop({ trim: true })
+  @Prop({ trim: true, maxLength: 1024 })
   description: string;
 
   @Prop({
@@ -34,17 +34,16 @@ export class Resource {
   @Prop({ required: true, min: 1 })
   capacity: number;
 
-  @Prop({ trim: true })
-  location: string;
-
   @Prop({
-    openTime: { type: String, required: true },
-    closeTime: { type: String, required: true },
+    type: {
+      openTime: String,
+      closeTime: String,
+    }, required: true
   })
-  operatingHours: OperatingHour;
+  operatingHours: OperatingHours;
 
   @Prop({ type: Boolean, default: true, index: true })
-  isActive: boolean;
+  canReserve: boolean;
 
   createdAt: Date;
   updatedAt: Date;
