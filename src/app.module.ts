@@ -6,6 +6,8 @@ import { ConfigModule } from '@nestjs/config';
 import { UsersModule } from './users/users.module';
 import { ResourcesModule } from './resources/resources.module';
 import { ReservationsModule } from './reservations/reservations.module';
+import { ResourcesService } from './resources/resources.service';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -13,12 +15,13 @@ import { ReservationsModule } from './reservations/reservations.module';
       isGlobal: true,
       envFilePath: '.env',
     }),
+    AuthModule,
     DatabaseModule,
     UsersModule,
     ResourcesModule,
     ReservationsModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, ResourcesService],
 })
-export class AppModule {}
+export class AppModule { }
